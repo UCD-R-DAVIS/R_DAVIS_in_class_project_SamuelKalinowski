@@ -75,3 +75,44 @@ ggplot(myiris, aes(x = Petal.Width, y = Petal.Length, color = size)) +
   theme_gray() + 
   ggtitle("Diamond Quality by Cut") +
   scale_color_brewer(palette = "RdYlBu")
+
+#Section 3: Non-visual representation ####
+#Braille package
+mybarplot <- ggplot(diamonds, aes(x = clarity)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.5)) +
+  theme_classic() + ggtitle("Number of Diamonds by Clarity")
+
+mybarplot
+library(BrailleR)
+install.packages("BrailleR")
+
+library(BrailleR)
+
+
+install.packages("sonify")
+library(sonify)
+0
+plot(iris$Petal.Width)
+sonify(iris$Petal.Width)
+
+detach("package:BrailleR", unload = TRUE)
+
+#Section 4: Publishing Plots and Saving Figures & Plots####
+install.packages("cowplot")
+library(cowplot)
+
+plot.diamonds <- ggplot(diamonds, aes(clarity, fill = cut)) +
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 70, vjust = 0.5))
+
+plot.cars <- ggplot(mpg, aes(x = cty, y = hwy, color = factor(cyl))) +
+  geom_point(size = 2.5)
+
+plot.iris <- ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, fill = Species)) + 
+                      geom_point(size = 3, alpha = 0.7, shape = 21)
+
+panel_plot <- plot_grid(plot.cars, plot.iris, plot.diamonds, labels = c("A", "B", "C"), ncol = 2, nrow = 2)                    
+panel_plot
+
+fixed_gridplot <- ggdraw() + draw_plot(plot.iris, x = 0, y = 0, width = )
